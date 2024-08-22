@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { PostsPage } from './pages/PostsPage';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { UsersPage } from './pages/UsersPage';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+     <Routes>
+      <Route path='/' element={<Navigate to='/posts/date'/>}>
+      </Route>
+      <Route path='/posts/new' element={<PostsPage sorting='new'/>}/>
+      <Route path='/posts/popular' element={<PostsPage sorting='popular'/>}></Route>
+      <Route path='/users' element={<UsersPage/>}></Route>
+     </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
+//const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+//root.render(<App/>);

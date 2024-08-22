@@ -1,0 +1,74 @@
+.community {
+    width:50%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    justify-content:space-between;
+    text-align:justify;
+    margin:10px;
+}
+
+.community:hover {
+    border:1px solid gray;
+}
+
+.community-banner {
+    height:150px;
+    border-radius:5px 5px 0px 0px;
+}
+
+.community-header {
+    display:flex;
+    justify-content: justify;
+    width:auto;
+    align-items: center;
+    margin:10px;
+}
+
+.community-header img {
+    width:50px;
+    height:50px;
+    border-radius:30px;
+    margin-right: 20px;
+}
+
+.community-info {
+    display:flex;
+    width:33%;
+    justify-content: justify;
+    margin:0px 10px 10px 10px;
+}
+
+.community-info-sub {
+    border-right:1px solid lightgray;
+    padding:5px;
+    text-align: right;
+}
+
+.community-info-sub img {
+    width:25px;
+    height:25px;
+    margin-right:5px;
+}
+
+.community-info-sub:hover {
+    text-decoration: underline;
+    border-right:1px solid gray;
+}
+
+.community-info-sub:hover::after {
+    content: attr(data-title); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 20%; top: 30%; /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: white; /* Полупрозрачный цвет фона */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border:1px solid lightgray;
+}
+
+.community-description {
+    margin:0px 10px 10px 10px;
+}

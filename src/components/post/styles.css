@@ -1,0 +1,128 @@
+.post {
+    width: 50%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    text-align:justify;
+    margin:10px;
+}
+
+.post:hover {
+    border:1px solid gray;
+}
+
+.post-header {
+    display:flex;
+    flex-direction: row;
+    justify-content: justify;
+    align-items: center;
+    text-align: justify;
+    vertical-align: middle;
+    margin:10px;
+}
+
+.post-header a {
+    color: black;
+    flex-direction: row;
+}
+
+.post-header img{
+    width:25px;
+    height: 25px;
+    border-radius:15px;
+    margin-right: 5px;
+}
+
+.post-img {
+    width:100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.post-img img {
+    max-height: 500px;
+    width:auto;
+    min-width: 100px;
+    border-radius:10px;
+}
+
+.post-footer {
+    display:flex;
+    flex-direction: row;
+    justify-content: start;
+    max-height: 50px;
+    padding: 20px;
+    margin:10px;
+}
+
+.post-rating {
+    display:flex;
+    flex-direction: row;
+    width: auto;
+    padding-left: 5px;
+    border-radius: 5px;
+    align-content: center;
+    height: 35px;
+    border:1px solid lightgray;
+}
+.post-rating-div {
+    width:50px;
+    height:35px;
+    display: flex;
+    flex-direction:column;
+    align-content:center;
+    justify-content:center;
+    text-align: center;
+}
+.post-rating button {
+    background-color: white;
+    border: 1px none;
+    width:50px;
+    border-radius: 5px
+}
+
+.post-rating button:hover {
+    border:1px solid gray;
+}
+
+.post-rating img {
+    width: 25px;
+    height: 25px;
+}
+
+.post-rating-pressed {
+    background-color: red;
+    border: 1px none;
+    width:50px;
+    border-radius: 5px
+}
+
+.post-comments {
+    width:150px;
+    height: 35px;
+    margin-left:50px;
+    background:white;
+    border:1px solid lightgray;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.post-comments > img,
+.post-comments > span {
+    vertical-align:middle;
+    width:25px;
+    height:25px;
+}
+
+.post-comments:hover {
+    border:1px solid gray;
+}
+
+.post-comments:active {
+    background:rgb(220, 20, 20);
+    color:white;
+}

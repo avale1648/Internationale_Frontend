@@ -1,0 +1,98 @@
+.user {
+    width:50%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    justify-content:space-between;
+    text-align:justify;
+    margin:10px;
+}
+
+.user:hover {
+    border:1px solid gray;
+}
+
+.user-banner {
+    height:150px;
+    border-radius:5px 5px 0px 0px;
+}
+
+.user-header {
+    display:flex;
+    justify-content: justify;
+    width:20%;
+    align-items: center;
+    margin:10px;
+}
+
+.user-header img {
+    width:50px;
+    height:50px;
+    border-radius:30px;
+    margin-right:20px;
+}
+
+.user-info {
+    display:flex;
+    width:33%;
+    justify-content: justify;
+    margin:0px 10px 10px 10px;
+}
+
+.user-info-sub {
+    border-right:1px solid lightgray;
+    padding:5px;
+    text-align: right;
+}
+
+.user-info-sub img {
+    width:25px;
+    height:25px;
+    margin-right:5px;
+}
+
+.user-info-sub:hover {
+    text-decoration: underline;
+    border-right:1px solid gray;
+}
+
+.user-info-sub:hover::after {
+    content: attr(data-title); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 20%; top: 30%; /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: white; /* Полупрозрачный цвет фона */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border:1px solid lightgray;
+}
+
+.user-description {
+    margin:0px 10px 10px 10px;
+}
+
+.user-preview {
+    width:100%;
+    height: 50px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    display:flex;
+    flex-direction:row;
+    align-content:center;
+    text-align:justify;
+    margin:10px;
+    align-items:center;
+}
+
+.user-preview:hover {
+    border: 1px solid gray;
+}
+
+.user-preview img {
+    width:35px;
+    height:35px;
+    margin:7px;
+    border-radius:25px;
+}

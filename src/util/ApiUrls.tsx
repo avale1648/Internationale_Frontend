@@ -1,0 +1,9 @@
+export const API_MAIN = 'http://localhost:1648';
+export const API_COMMUNITIES = `${API_MAIN}/communities`;
+export const API_COMMUNITY_SUBSCRIPTIONS = `${API_MAIN}/community_subscriptions`;
+export const API_MESSAGES = `${API_MAIN}/messages`;
+export const API_MODERATORS = `${API_MAIN}/moderators`;
+export const API_POSTS = `${API_MAIN}/posts`;
+export const API_RATINGS = `${API_MAIN}/ratings`;
+export const API_USERS = `${API_MAIN}/users`;
+export const API_USER_SUBSCRIPTIONS = `${API_MAIN}/user_subscriptions`
