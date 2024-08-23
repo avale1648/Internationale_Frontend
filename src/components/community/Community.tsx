@@ -7,6 +7,7 @@ import MATURE from '../../assets/mature.svg';
 import UNMATURE from '../../assets/unmature.svg';
 import FOUNDER from '../../assets/user.svg';
 import './styles.css';
+import { Link } from "react-router-dom";
 
 export function Community({props}:{props: CommunityProps}) {
     const banner = props.banner === "" || props.banner === null ? DEFAULT_BANNER : props.banner;
@@ -41,4 +42,23 @@ export function Community({props}:{props: CommunityProps}) {
         </div>
         <div className='community-description'>{props.description}</div>
       </div>);
+}
+
+export function CommunityPreview({props}:{props: CommunityProps}) {
+  const pfp = props.pfp === "" ? DEFAULT_PFP : props.pfp;
+
+    const linkStyle = {
+        textDecoration: "none",
+        color: "black",
+        width: "50%"
+    }
+
+    return (
+        <Link to={`/communities/${props.name}`} style={linkStyle}>
+            <div className='community-preview'>
+                <img src={pfp} alt='pfp' />
+                <h5>i/{props.name}</h5>
+            </div>
+        </Link>
+    );
 }

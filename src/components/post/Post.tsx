@@ -6,11 +6,10 @@ import COMMENTS from "../../assets/comment-icon.svg";
 import { Media } from "../Media";
 import PostProps from "../../props/PostProps";
 import './styles.css';
-import { text } from "stream/consumers";
 
 
 export function Post({ props }: { props: PostProps }) {
-    const communityPfp = props.community.pfp === null || props.community.pfp === '' ? DEFAULT_COMMUNITY_PFP : props.community.pfp;
+    const communityPfp = props.community === null || props.community!.pfp === null || props.community!.pfp === ''? DEFAULT_COMMUNITY_PFP : props.community!.pfp;
     const userPfp = props.user.pfp === null || props.user.pfp === '' ? DEFAULT_USER_PFP : props.user.pfp;
     const date = new Date(props.postDate);
     const postDate_format = `${date.toLocaleDateString("ru-RU")}, ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
@@ -28,9 +27,8 @@ export function Post({ props }: { props: PostProps }) {
     } else {
         HEADER = <div>
             <div className='post-header'>
-                <img src={userPfp} alt='community-pfp'></img>
-                <a href=""><h5>u/{props.user.name}</h5></a>
-                {postDate_format}
+                <img src={userPfp} alt='user-pfp'></img>
+                <a href="">u/{props.user.name}</a>, {postDate_format}
             </div>
         </div>
     }
