@@ -10,7 +10,6 @@ const posts: PostProps[] = await getPosts();
 export function PostPage() {
     const {id} = useParams();
     const post = posts.find(p => p.id.toString() === id);
-    const childs = posts.filter(p => p.parentPost === post);
     
     return (
         <div>
