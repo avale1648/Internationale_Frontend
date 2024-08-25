@@ -4,6 +4,7 @@ import "./styles.css";
 import SIGN_UP from "../../assets/registration.svg";
 import SIGN_IN from "../../assets/login.svg";
 import SIGN_OUT from "../../assets/logout.svg";
+import { signout } from "../auth/AuthUtil";
 
 export function Header() {
     return (
@@ -18,16 +19,16 @@ export function Header() {
             <div className="header-sub">
                 <Link to='/signup'>
                     <div className="header-button" data-title='Sign up'>
-                    <img src={SIGN_UP} alt="" />
+                    <img src={SIGN_UP} alt="signup" />
                     </div>
                 </Link>
-                <Link to=''>
+                <Link to='/signin'>
                 <div className="header-button" data-title='Sign in'>
-                    <img src={SIGN_IN} alt="" />
+                    <img src={SIGN_IN} alt="signin" />
                     </div>
                 </Link>
-                <div className="header-button" data-title='Sign out'>
-                    <img src={SIGN_OUT} alt="" />
+                <div className="header-button" onClick={signout} data-title='Sign out'>
+                    <img src={SIGN_OUT} alt="signout" />
                     </div>
                 </div>
             </div>

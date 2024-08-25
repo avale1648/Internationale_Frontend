@@ -2,6 +2,7 @@ import './styles.css'
 import { useState } from "react";
 import UserProps from "../../props/UserProps";
 import { createUser } from "../../api/UserService";
+import { setUser } from './AuthUtil';
 
 export default function SignupForm() {
     const [name, setName] = useState("");
@@ -26,6 +27,8 @@ export default function SignupForm() {
         };
 
         createUser(user);
+        setUser(user!);
+        window.location.href = `/users/${user!.name}`;
     }
 
     return (

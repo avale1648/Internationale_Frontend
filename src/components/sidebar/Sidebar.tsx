@@ -8,15 +8,18 @@ import USERS from "../../assets/users.svg";
 import COMMUNITIES from "../../assets/flag.svg";
 import MESSAGES from "../../assets/message.svg";
 import ABOUT from "../../assets/star.svg";
+import UserProps from "../../props/UserProps";
 
 const linkStyle = {
   textDecoration: "none"
 };
 
 export function Sidebar({active}:{active: string}) {
+  const user: UserProps = JSON.parse(localStorage.getItem("user")!);
+  
   return (
     <div className="sidebar">
-      <Link to='/users/me' style={linkStyle}>
+      <Link to={`/users/${user?.name}`} style={linkStyle}>
         <div className={active === "profile"? "active-sidebar-element": "sidebar-element"}>
           <img src={PROFILE} alt="user" />
           Profile

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { getUsers } from "../api/UserService";
 import { Header } from "../components/header/Header";
 import { Sidebar } from "../components/sidebar/Sidebar";
@@ -12,20 +12,25 @@ const users: UserProps[] = await getUsers();
 const posts: PostProps[] = await getPosts();
 
 export function UserPage() {
-    const {name} = useParams();
-    const user = users.find(u => u.name === name);
-    const userPosts = posts.filter(p => p.user.name === user?.name);
+  const { name } = useParams();
+  const user = users.find(u => u.name === name);
+  const userPosts = posts.filter(p => p.user.name === user?.name);
+  const user_me: UserProps = JSON.parse(localStorage.getItem("user")!);
 
-    return (
-      <div>
-        <Header></Header>
-        <div className='main-container'>
-          <Sidebar active="users"></Sidebar>
-          <div className='content-container'>
-              <User userProps={user as UserProps}/>
-              {userPosts.map((post: PostProps) => <Post props={post}></Post>)}
-          </div>
+  if(user_me === null) {
+      return <Navigate to='/signin'></Navigate>
+  }
+
+  return (
+    <div>
+      <Header></Header>
+      <div className='main-container'>
+        <Sidebar active={user!.name === user_me!.name ? "profile" : "users"}></Sidebar>
+        <div className='content-container'>
+          <User userProps={user as UserProps} />
+          {userPosts.map((post: PostProps) => <Post props={post}></Post>)}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}

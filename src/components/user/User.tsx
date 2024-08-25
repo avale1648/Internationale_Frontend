@@ -7,8 +7,8 @@ import REGISTRATION from '../../assets/registration.svg';
 import { Link } from 'react-router-dom';
 
 export function User({ userProps: props }: { userProps: UserProps }) {
-    const banner = props.banner === "" ? DEFAULT_BANNER : props.banner;
-    const pfp = props.pfp === "" ? DEFAULT_PFP : props.pfp;
+    const banner = props.banner === "" || props.banner === null ? DEFAULT_BANNER : props.banner;
+    const pfp = props.pfp === "" || props.pfp === null ? DEFAULT_PFP : props.pfp;
     const date = new Date(props.cakedate);
     const cakedate_format = `${date.toLocaleDateString("ru-RU")}`;
 

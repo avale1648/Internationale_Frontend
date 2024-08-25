@@ -8,6 +8,7 @@ import { PostPage } from './pages/PostPage';
 import { UserPage } from './pages/UserPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SignupPage } from './pages/auth/SignupPage';
+import { SigninPage } from './pages/auth/SigninPage';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
       <Route path='/communities' element={<CommunitiesPage/>}/>
       <Route path='/communities/:name' element={<CommunityPage/>}/>
       <Route path='/signup' element={<SignupPage/>}/>
+      <Route path='/signin' element={<SigninPage/>}/>
       <Route path='*' element={<Navigate to='/posts/new'/>}/>
      </Routes>
     </BrowserRouter>
