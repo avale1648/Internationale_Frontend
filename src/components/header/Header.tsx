@@ -16,7 +16,7 @@ export function Header() {
             </div>
             <div className="header-sub-right">
             <div className="header-sub">
-                <Link to=''>
+                <Link to='/signup'>
                     <div className="header-button" data-title='Sign up'>
                     <img src={SIGN_UP} alt="" />
                     </div>

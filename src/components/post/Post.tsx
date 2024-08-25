@@ -2,7 +2,6 @@ import DEFAULT_USER_PFP from "../../assets/default-user-pfp.png";
 import DEFAULT_COMMUNITY_PFP from "../../assets/default-community-pfp.png";
 import RATING_UP from "../../assets/rating-up.svg";
 import RATING_DOWN from "../../assets/rating-down.svg";
-import COMMENTS from "../../assets/comment-icon.svg";
 import { Media } from "../Media";
 import PostProps from "../../props/PostProps";
 import './styles.css';
@@ -13,8 +12,7 @@ export function Post({ props }: { props: PostProps }) {
     const communityPfp = props.community === null || props.community!.pfp === null || props.community!.pfp === '' ? DEFAULT_COMMUNITY_PFP : props.community!.pfp;
     const userPfp = props.user.pfp === null || props.user.pfp === '' ? DEFAULT_USER_PFP : props.user.pfp;
     const date = new Date(props.postDate);
-    const postDate_format = `${date.toLocaleDateString("ru-RU")}, ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
-    const commentCount = 0;
+    const postDate_format = `${date.toLocaleDateString("ru-RU")}, ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`
 
     let HEADER;
     if (props.community !== null) {
@@ -98,8 +96,3 @@ function ratingDown(props: PostProps, id: string) {
         document.getElementById(id)!.className = '';
     }
 }
-
-/*<button className='post-comments'>
-                    <img src={COMMENTS} alt='comments'></img>
-                    <span> {commentCount}</span>
-                </button>*/

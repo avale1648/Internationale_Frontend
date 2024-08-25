@@ -1,0 +1,39 @@
+.signup-container {
+    width:500px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    border:1px solid lightgray;
+    border-top:20px solid red;
+    border-radius: 10px;
+}
+
+.signup-container h2 {
+    align-self: center;
+    margin:15px;
+}
+
+.signup-container label {
+    margin-left:15px;
+}
+
+.signup-container input {
+    margin:15px;
+    height:35px;
+    border:1px solid lightgray;
+    border-radius: 7px;
+}
+
+.signup-container input:hover {
+    border:1px solid gray;
+}
+
+.signup-container button {
+    width:250px;
+    height:50px;
+    margin:15px 125px 15px 125px;
+    border:none;
+    background-color: red;
+    border-radius: 10px;
+    color:white;
+}
