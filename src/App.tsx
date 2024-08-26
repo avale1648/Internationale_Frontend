@@ -9,6 +9,7 @@ import { UserPage } from './pages/UserPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SignupPage } from './pages/auth/SignupPage';
 import { SigninPage } from './pages/auth/SigninPage';
+import { SubmitPostPage } from './pages/SubmitPostPage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <Route path='/posts/new' element={<PostsPage sorting='new'/>}/>
       <Route path='/posts/popular' element={<PostsPage sorting='popular'/>}/>
       <Route path='/posts/:id' element={<PostPage/>}/>
+      <Route path='/posts/submit' element={<SubmitPostPage></SubmitPostPage>}></Route>
       <Route path='/users' element={<UsersPage/>}/>
       <Route path='/users/:name' element={<UserPage/>}/>
       <Route path='/communities' element={<CommunitiesPage/>}/>

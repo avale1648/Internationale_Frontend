@@ -19,7 +19,7 @@ export function Post({ props }: { props: PostProps }) {
         HEADER = <div>
             <div className='post-header'>
                 <img src={communityPfp} alt='community-pfp'></img>
-                <Link to={`/communities/${props.community.name}`}>i/{props.community.name}</Link>&nbsp;
+                <Link to={`/communities/${props.community!.name}`}>i/{props.community!.name}</Link>&nbsp;
                 <span>by <Link to={`/users/${props.user.name}`}>c/{props.user.name}</Link>, {postDate_format}</span>
             </div>
         </div>
@@ -38,7 +38,7 @@ export function Post({ props }: { props: PostProps }) {
             HEADER = <div>
                 <div className='post-header'>
                     <img src={userPfp} alt='user-pfp'></img>
-                    <Link to={`/users/${props.user.name}`}>u/{props.user.name}</Link>, {postDate_format},  reply to&nbsp;<Link to={`/posts/${props.parentPost.id}`}>{`${props.parentPost.user.name}-${props.parentPost.postDate}`}</Link>
+                    <Link to={`/users/${props.user.name}`}>u/{props.user.name}</Link>, {postDate_format},  reply to&nbsp;<Link to={`/posts/${props.parentPost!.id}`}>{`${props.parentPost!.user.name}-${props.parentPost!.postDate}`}</Link>
                 </div>
             </div>
     }

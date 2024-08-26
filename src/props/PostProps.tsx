@@ -4,8 +4,8 @@ import UserProps from "./UserProps";
 interface PostProps {
     id: number;
     user: UserProps;
-    community: CommunityProps;
-    parentPost: PostProps;
+    community?: CommunityProps;
+    parentPost?: PostProps;
     title: string;
     text: string;
     postDate: string;
