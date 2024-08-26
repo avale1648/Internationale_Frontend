@@ -7,7 +7,7 @@ import UserProps from "../props/UserProps";
 import PostProps from "../props/PostProps";
 import { getPosts } from "../api/PostService";
 import { Post } from "../components/post/Post";
-import { PostCreator } from "../components/post/PostCreator";
+import { CreateButton } from "../components/CreateButton";
 
 const users: UserProps[] = await getUsers();
 const posts: PostProps[] = await getPosts();
@@ -25,7 +25,7 @@ export function UserPage() {
   let postCreator = <div></div>;
 
   if(user?.name === user_me.name) {
-    postCreator = <PostCreator></PostCreator>;
+    postCreator = <CreateButton url='/posts/submit' text="New post"></CreateButton>;
   }
 
   return (

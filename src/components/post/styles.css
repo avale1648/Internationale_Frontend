@@ -126,20 +126,3 @@
     background:rgb(220, 20, 20);
     color:white;
 }
-
-.post-creator {
-    width:50%;
-    height:50px;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    align-content:center;
-    align-items: center;
-}
-
-.post-creator img {
-    width:25px;
-    height:25px;
-    margin:5px;
-}

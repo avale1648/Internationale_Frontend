@@ -1,15 +1,16 @@
 import { Header } from "../components/header/Header";
 import { Sidebar } from "../components/sidebar/Sidebar";
-import { PostForm } from "../components/post/PostForm";
+import { CommunityForm } from "../components/community/CommunityForm";
+import "./styles.css";
 
-export function SubmitPostPage() {
+export function SubmitCommunityPage() {
     return (
       <div>
         <Header></Header>
         <div className='main-container'>
           <Sidebar active="new"></Sidebar>
           <div className='content-container'>
-              <PostForm></PostForm>
+              <CommunityForm></CommunityForm>
           </div>
         </div>
       </div>

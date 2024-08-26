@@ -40,7 +40,7 @@ export function PostForm() {
         <label htmlFor="title-input">Title:</label>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} id="title-input" name="title-input" placeholder="Enter a title" />
         <label htmlFor="text-input">Text:</label>
-        <input type="text" value={text} onChange={(e) => setText(e.target.value)} id="password-input" name="password-input" placeholder="Enter a text" />
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)} id="text-input" name="text-input" placeholder="Enter a text" />
         <button onClick={create}>Submit</button>
     </div>);
 }
