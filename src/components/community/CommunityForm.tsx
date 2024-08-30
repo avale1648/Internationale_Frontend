@@ -20,7 +20,7 @@ export function CommunityForm() {
             id: 0,
             founder: userPost!,
             name: name,
-            mature: false,
+            mature: mature === "false"? false: true,
             rating: 0,
             cakedate: cakedate,
             description: description,

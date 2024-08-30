@@ -35,7 +35,7 @@ export function UserPage() {
         <Sidebar active={user!.name === user_me!.name ? "profile" : "users"}></Sidebar>
         <div className='content-container'>
           <User userProps={user as UserProps} />
-          {postCreator}
+          {postCreator} <br />
           {userPosts.map((post: PostProps) => <Post props={post}></Post>)}
         </div>
       </div>
