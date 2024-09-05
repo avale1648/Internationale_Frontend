@@ -1,10 +1,10 @@
 import UserProps from "../../props/UserProps";
 
 export function setUser(user: UserProps) {
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user_id", `${user.id}`);
 }
 
 export function signout() {
-    localStorage.clear();
+    localStorage.removeItem("user_id");
     window.location.href="/posts/new";
 }

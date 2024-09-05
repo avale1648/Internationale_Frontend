@@ -1,28 +1,34 @@
 import { useState } from "react";
 import UserProps from "../../props/UserProps";
-import { getUsers } from "../../api/UserService";
+import { getUserById} from "../../api/UserService";
 import PostProps from "../../props/PostProps";
 import CommunityProps from "../../props/CommunityProps";
-import { createPost } from "../../api/PostService";
+import { createPost, getPostById } from "../../api/PostService";
+import { getCommunityById } from "../../api/CommunityService";
 
-const users: UserProps[] = await getUsers();
+const userId: number = Number(localStorage.getItem("user_id"));
+const user: UserProps| undefined = localStorage.getItem("user_id") !== null? await getUserById(userId): undefined;
+const communityId: number = Number(localStorage.getItem("community_id"));
+const community: CommunityProps = await getCommunityById(communityId);
+const postId: number = Number(localStorage.getItem("post_id"));
+const parentPost: PostProps = await getPostById(postId); 
 
 export function PostForm() {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
 
     function create() {
-        const user:UserProps = JSON.parse(localStorage.getItem("user")!);
-        const userPost = users.find(u => u.name === user.name);
-        let community: CommunityProps;
-        let parentPost: PostProps;
         const postdate = new Date(Date.now()).toISOString();
+        const postSubmitMode = localStorage.getItem("post_submit_mode");
+
+        const href = postSubmitMode === "user"? `/users/${user?.name}`: 
+            postSubmitMode === "community"? `/communities/${community?.name}`: `/posts/${parentPost.id}`;
         
         let post: PostProps = {
             id: 0,
-            user: userPost!,
-            community: community!,
-            parentPost: parentPost!,
+            user: user!,
+            community: postSubmitMode === "community"? community: undefined,
+            parentPost: postSubmitMode === "post"? parentPost: undefined,
             title: title,
             text: text,
             postDate: postdate,
@@ -31,7 +37,7 @@ export function PostForm() {
         }
 
         createPost(post);
-        window.location.href = "/posts/new";
+        window.location.href = href;
     }
 
     return (

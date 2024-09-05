@@ -10,6 +10,9 @@ const posts: PostProps[] = await getPosts();
 export function PostPage() {
     const {id} = useParams();
     const post = posts.find(p => p.id.toString() === id);
+
+    localStorage.setItem("community_id", `${post!.id}`);
+    localStorage.setItem("post_submit_mode", "post");
     
     return (
         <div>

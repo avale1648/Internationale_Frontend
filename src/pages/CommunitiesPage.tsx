@@ -11,7 +11,7 @@ const communities: CommunityProps[] = await getCommunities();
 export function CommunitiesPage() {
   let communityCreator = <div></div>;
 
-  if(localStorage.getItem("user") !== null || localStorage.getItem("user") !== "") {
+  if(localStorage.getItem("user_id") !== null && localStorage.getItem("user_id") !== "") {
     communityCreator = <CreateButton url="/communities/submit" text="New Community"></CreateButton>
   }
   
@@ -23,7 +23,7 @@ export function CommunitiesPage() {
           <div className='content-container'>
             {communityCreator} <br />
             {communities.map((community: CommunityProps) =>
-                <CommunityPreview props={community}></CommunityPreview>)
+                <CommunityPreview props={community} key={community.id}></CommunityPreview>)
             }
           </div>
         </div>

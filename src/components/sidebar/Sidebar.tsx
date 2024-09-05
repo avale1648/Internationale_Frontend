@@ -9,17 +9,18 @@ import COMMUNITIES from "../../assets/flag.svg";
 import MESSAGES from "../../assets/message.svg";
 import ABOUT from "../../assets/star.svg";
 import UserProps from "../../props/UserProps";
+import { getUserById } from "../../api/UserService";
 
 const linkStyle = {
   textDecoration: "none"
 };
-
+const userId: number = Number(localStorage.getItem("user_id"));
+const user: UserProps| undefined = localStorage.getItem("user_id") !== null? await getUserById(userId): undefined;
 export function Sidebar({active}:{active: string}) {
-  const user: UserProps = JSON.parse(localStorage.getItem("user")!);
   
   return (
     <div className="sidebar">
-      <Link to={`/users/${user?.name}`} style={linkStyle}>
+      <Link to={localStorage.getItem("user_id") === null || localStorage.getItem("user_id") === ""?"/signin": `/users/${user?.name}`} style={linkStyle}>
         <div className={active === "profile"? "active-sidebar-element": "sidebar-element"}>
           <img src={PROFILE} alt="user" />
           Profile

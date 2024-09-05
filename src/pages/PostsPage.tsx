@@ -29,7 +29,7 @@ export function PostsPage({sorting}:{sorting: string}) {
         {sorting === 'new'? <Sidebar active="new"></Sidebar>: <Sidebar active="popular"></Sidebar>}
         <div className='content-container'>
           {posts.map((post: PostProps) =>
-              <Post props={post}></Post>)
+              <Post props={post} key={post.id}></Post>)
           }
         </div>
       </div>

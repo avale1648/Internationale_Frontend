@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUsers } from "../api/UserService";
 import { Header } from "../components/header/Header";
 import { Sidebar } from "../components/sidebar/Sidebar";
@@ -16,15 +16,12 @@ export function UserPage() {
   const { name } = useParams();
   const user = users.find(u => u.name === name);
   const userPosts = posts.filter(p => p.user.name === user?.name);
-  const user_me: UserProps = JSON.parse(localStorage.getItem("user")!);
-
-  if(user_me === null) {
-      return <Navigate to='/signin'></Navigate>
-  }
+  const isUserMe: boolean = user?.id === Number(localStorage.getItem("user_id"))? true: false; 
 
   let postCreator = <div></div>;
 
-  if(user?.name === user_me.name) {
+  if(isUserMe) {
+    localStorage.setItem("post_submit_mode", "user")
     postCreator = <CreateButton url='/posts/submit' text="New post"></CreateButton>;
   }
 
@@ -32,11 +29,11 @@ export function UserPage() {
     <div>
       <Header></Header>
       <div className='main-container'>
-        <Sidebar active={user!.name === user_me!.name ? "profile" : "users"}></Sidebar>
+        <Sidebar active={isUserMe ? "profile" : "users"}></Sidebar>
         <div className='content-container'>
-          <User userProps={user as UserProps} />
+          <User props={user as UserProps} />
           {postCreator} <br />
-          {userPosts.map((post: PostProps) => <Post props={post}></Post>)}
+          {userPosts.map((post: PostProps) => <Post props={post} key={post.id}></Post>)}
         </div>
       </div>
     </div>

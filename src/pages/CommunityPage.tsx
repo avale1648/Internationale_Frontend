@@ -7,6 +7,7 @@ import { Community } from "../components/community/Community";
 import PostProps from "../props/PostProps";
 import { getPosts } from "../api/PostService";
 import { Post } from "../components/post/Post";
+import { CreateButton } from "../components/CreateButton";
 
 const communities: CommunityProps[] = await getCommunities();
 const posts: PostProps[] = await getPosts();
@@ -14,7 +15,16 @@ const posts: PostProps[] = await getPosts();
 export function CommunityPage() {
     const {name} = useParams();
     const community = communities.find(c => c.name === name);
-    const communityPosts = posts.filter(p => p.community?.name === community?.name)
+    const communityPosts = posts.filter(p => p.community?.name === community?.name);
+    
+    localStorage.setItem("community_id", `${community!.id}`);
+    localStorage.setItem("post_submit_mode", "community");
+
+    let postCreator = <div></div>;
+
+    if(localStorage.getItem("user_id") !== null && localStorage.getItem("user_id") !== "") {
+      postCreator = <CreateButton url='/posts/submit' text="New post"></CreateButton>;
+    }
 
     return (
       <div>
@@ -23,7 +33,9 @@ export function CommunityPage() {
           <Sidebar active="communities"></Sidebar>
           <div className='content-container'>
                 <Community props={community as CommunityProps}/>
-                {communityPosts.map((post: PostProps) => <Post props={post}></Post>)}
+                {postCreator}
+                <br />
+                {communityPosts.map((post: PostProps) => <Post props={post} key={post.id}></Post>)}
           </div>
         </div>
       </div>

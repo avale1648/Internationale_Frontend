@@ -6,7 +6,7 @@ import RATING from '../../assets/rating.svg';
 import REGISTRATION from '../../assets/registration.svg';
 import { Link } from 'react-router-dom';
 
-export function User({ userProps: props }: { userProps: UserProps }) {
+export function User({ props }: { props: UserProps }) {
     const banner = props.banner === "" || props.banner === null ? DEFAULT_BANNER : props.banner;
     const pfp = props.pfp === "" || props.pfp === null ? DEFAULT_PFP : props.pfp;
     const date = new Date(props.cakedate);

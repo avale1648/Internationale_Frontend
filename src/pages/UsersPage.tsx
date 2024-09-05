@@ -16,7 +16,7 @@ export function UsersPage() {
         <Sidebar active="users"></Sidebar>
         <div className='content-container'>
           {users.map((user: UserProps) =>
-              <UserPreview userProps={user}></UserPreview>)
+              <UserPreview userProps={user} key={user.id}></UserPreview>)
           }
         </div>
       </div>
