@@ -6,7 +6,7 @@ import { Sidebar } from "../components/sidebar/Sidebar";
 import { Community } from "../components/community/Community";
 import PostProps from "../props/PostProps";
 import { getPosts } from "../api/PostService";
-import { Post } from "../components/post/Post";
+import { PostPreview } from "../components/post/Post";
 import { CreateButton } from "../components/CreateButton";
 
 const communities: CommunityProps[] = await getCommunities();
@@ -35,7 +35,7 @@ export function CommunityPage() {
                 <Community props={community as CommunityProps}/>
                 {postCreator}
                 <br />
-                {communityPosts.map((post: PostProps) => <Post props={post} key={post.id}></Post>)}
+                {communityPosts.map((post: PostProps) => <PostPreview props={post} key={post.id}></PostPreview>)}
           </div>
         </div>
       </div>

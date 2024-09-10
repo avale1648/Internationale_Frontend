@@ -1,12 +1,11 @@
 import { getPosts } from "../api/PostService";
 import { Header } from "../components/header/Header";
-import { Post } from "../components/post/Post";
+import { PostPreview } from "../components/post/Post";
 import { Sidebar } from "../components/sidebar/Sidebar";
 import PostProps from "../props/PostProps";
 import './styles.css';
 
 const posts: PostProps[] = await getPosts();
-
 
 export function PostsPage({sorting}:{sorting: string}) {
 
@@ -29,7 +28,7 @@ export function PostsPage({sorting}:{sorting: string}) {
         {sorting === 'new'? <Sidebar active="new"></Sidebar>: <Sidebar active="popular"></Sidebar>}
         <div className='content-container'>
           {posts.map((post: PostProps) =>
-              <Post props={post} key={post.id}></Post>)
+              <PostPreview props={post} key={post.id}></PostPreview>)
           }
         </div>
       </div>

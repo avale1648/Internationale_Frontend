@@ -6,7 +6,7 @@ import { User } from "../components/user/User";
 import UserProps from "../props/UserProps";
 import PostProps from "../props/PostProps";
 import { getPosts } from "../api/PostService";
-import { Post } from "../components/post/Post";
+import { PostPreview } from "../components/post/Post";
 import { CreateButton } from "../components/CreateButton";
 
 const users: UserProps[] = await getUsers();
@@ -33,7 +33,7 @@ export function UserPage() {
         <div className='content-container'>
           <User props={user as UserProps} />
           {postCreator} <br />
-          {userPosts.map((post: PostProps) => <Post props={post} key={post.id}></Post>)}
+          {userPosts.map((post: PostProps) => <PostPreview props={post} key={post.id}></PostPreview>)}
         </div>
       </div>
     </div>

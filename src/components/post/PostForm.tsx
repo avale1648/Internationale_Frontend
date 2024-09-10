@@ -8,11 +8,11 @@ import { getCommunityById } from "../../api/CommunityService";
 import { useParams } from "react-router-dom";
 
 const userId: number = Number(localStorage.getItem("user_id"));
-const user: UserProps| undefined = localStorage.getItem("user_id") !== null? await getUserById(userId): undefined;
+const user: UserProps| undefined = await getUserById(userId);
 const communityId: number = Number(localStorage.getItem("community_id"));
-const community: CommunityProps = await getCommunityById(communityId);
+const community: CommunityProps| undefined = await getCommunityById(communityId);
 const parentPostId: number = Number(localStorage.getItem("post_id"));
-const parentPost: PostProps = await getPostById(parentPostId);
+const parentPost: PostProps| undefined = await getPostById(parentPostId);
 const posts: PostProps[] = await getPosts();
 
 export function PostForm({mode}:{mode:string}) {
@@ -25,7 +25,7 @@ export function PostForm({mode}:{mode:string}) {
 
     const postSubmitMode = localStorage.getItem("post_submit_mode");
     const href = postSubmitMode === "user"? `/users/${user?.name}`: 
-    postSubmitMode === "community"? `/communities/${community?.name}`: `/posts/${parentPost.id}`;
+    postSubmitMode === "community"? `/communities/${community?.name}`: `/posts/${parentPost?.id}`;
 
     function create() {
         const postdate = new Date(Date.now()).toISOString();
@@ -46,7 +46,7 @@ export function PostForm({mode}:{mode:string}) {
         window.location.href = href;
     }
 
-    function update() {
+    async function update() {
         let post: PostProps = {
             id: postToUpdate!.id,
             user: postToUpdate!.user,
@@ -59,8 +59,8 @@ export function PostForm({mode}:{mode:string}) {
             file: postToUpdate!.file
         }
 
-        updatePost(post.id, post);
-        //window.location.href = href;
+        await updatePost(post.id, post);
+        window.location.href = `/posts/${post.id}`;
     }
 
     return (

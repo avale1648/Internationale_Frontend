@@ -1,4 +1,4 @@
-.post {
+.post-preview {
     width: 50%;
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -10,8 +10,28 @@
     margin:10px;
 }
 
-.post:hover {
+.post-preview:hover {
     border:1px solid gray;
+}
+
+.post {
+    width: 100%;
+    border-left: 1px solid lightgray;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    text-align:justify;
+    margin:10px;
+}
+
+.post:hover {
+    border-color: gray;
+}
+
+.replies-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .post-header {
@@ -104,27 +124,33 @@
     justify-content:center;
     text-align: center;
 }
-.post-rating button {
+.unpressed {
     background-color: white;
     border: 1px none;
     width:50px;
     border-radius: 5px
 }
 
-.post-rating button:hover {
+.unpressed:hover {
     border:1px solid gray;
 }
 
-.post-rating img {
+.unpressed img {
     width: 25px;
     height: 25px;
 }
 
-.post-rating-pressed {
+.pressed {
     background-color: red;
     border: 1px none;
     width:50px;
     border-radius: 5px
+}
+
+.pressed img {
+    width: 25px;
+    height: 25px;
+    filter:invert(100%);
 }
 
 .post-comments {
