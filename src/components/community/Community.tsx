@@ -1,6 +1,4 @@
 import CommunityProps from "../../props/CommunityProps";
-import DEFAULT_BANNER from '../../assets/default_banner.png';
-import DEFAULT_PFP from '../../assets/default-community-pfp.png';
 import RATING from '../../assets/rating.svg';
 import REGISTRATION from '../../assets/registration.svg';
 import MATURE from '../../assets/mature.svg';
@@ -10,17 +8,15 @@ import './styles.css';
 import { Link } from "react-router-dom";
 
 export function Community({props}:{props: CommunityProps}) {
-    const banner = props.banner === "" || props.banner === null ? DEFAULT_BANNER : props.banner;
-    const pfp = props.pfp === "" || props.pfp === null ? DEFAULT_PFP : props.pfp;
     const date = new Date(props.cakedate);
     const cakedate_format = `${date.toLocaleDateString("ru-RU")}`;
     const mature = props.mature === true? MATURE: UNMATURE;
     
 
     return (<div className='community'>
-        <img className='community-banner' src={banner} alt='banner'></img>
+        <img className='community-banner' src={props.banner} alt='banner'></img>
         <div className='community-header'>
-          <img src={pfp} alt='pfp'></img>
+          <img src={props.pfp} alt='pfp'></img>
           <h2>{'i/' + props.name}</h2>
         </div>
         <div className='community-info'>
@@ -45,8 +41,6 @@ export function Community({props}:{props: CommunityProps}) {
 }
 
 export function CommunityPreview({props}:{props: CommunityProps}) {
-  const pfp = props.pfp === "" ? DEFAULT_PFP : props.pfp;
-
     const linkStyle = {
         textDecoration: "none",
         color: "black",
@@ -56,7 +50,7 @@ export function CommunityPreview({props}:{props: CommunityProps}) {
     return (
         <Link to={`/communities/${props.name}`} style={linkStyle}>
             <div className='community-preview'>
-                <img src={pfp} alt='pfp' />
+                <img src={props.pfp} alt='pfp' />
                 <h5>i/{props.name}</h5>
             </div>
         </Link>

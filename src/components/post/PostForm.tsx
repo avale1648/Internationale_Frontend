@@ -8,7 +8,7 @@ import { getCommunityById } from "../../api/CommunityService";
 import { useParams } from "react-router-dom";
 
 const userId: number = Number(localStorage.getItem("user_id"));
-const user: UserProps| undefined = await getUserById(userId);
+const user: UserProps| undefined = localStorage.getItem("user_id") === null? undefined: await getUserById(userId);
 const communityId: number = Number(localStorage.getItem("community_id"));
 const community: CommunityProps| undefined = await getCommunityById(communityId);
 const parentPostId: number = Number(localStorage.getItem("post_id"));

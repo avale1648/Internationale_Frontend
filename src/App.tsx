@@ -21,7 +21,7 @@ export default function App() {
       <Route path='/posts/popular' element={<PostsPage sorting='popular'/>}/>
       <Route path='/posts/subscribed' element={<h1>Unimplemented page</h1>}/>
       <Route path='/posts/:id' element={<PostPage/>}/>
-      <Route path='/posts/submit' element={<PostFormPage mode="submit"/>}/>
+      <Route path='/posts/submit' element={<PostFormPage mode="add"/>}/>
       <Route path='/posts/edit/:id' element={<PostFormPage mode="edit"/>}/>
       <Route path='/users' element={<UsersPage/>}/>
       <Route path='/users/:name' element={<UserPage/>}/>

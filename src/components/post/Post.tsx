@@ -4,6 +4,7 @@ import RATING_UP from "../../assets/rating-up.svg";
 import RATING_DOWN from "../../assets/rating-down.svg";
 import EDIT from '../../assets/registration.svg';
 import DELETE from '../../assets/bin.svg';
+import REPLIES from '../../assets/comment-icon.svg';
 import { Media } from "../Media";
 import PostProps from "../../props/PostProps";
 import './styles.css';
@@ -18,7 +19,7 @@ const ratings: RatingProps[] = await getRatings();
 const posts: PostProps[] = await getPosts();
 let moderators: UserProps[] | undefined;
 const userId: number = Number(localStorage.getItem("user_id"));
-const user: UserProps | undefined = localStorage.getItem("user_id") !== null ? await getUserById(userId) : undefined;
+const user: UserProps | undefined = localStorage.getItem("user_id") === null ? undefined: await getUserById(userId) ;
 
 export function PostPreview({ props }: { props: PostProps }) {
     let header = initHeader(props);
@@ -179,112 +180,130 @@ function initFooter(props: PostProps) {
         <div className='post-footer'>
             <div className='post-rating'>
                 <div className='post-rating-div'>{props.rating}</div>
-                <button className='unpressed' id={`rating-up-${props.id}`} onLoad={()=>buttonUpOnLoad(props, `rating-up-${props.id}`)} onClick={() => ratingUp(props, `rating-up-${props.id}`, `rating-down-${props.id}`)}>
+                <button className='unpressed' id={`rating-up-${props.id}`} onLoad={() => buttonUpOnLoad(props, `rating-up-${props.id}`)} onClick={() => ratingUp(props, `rating-up-${props.id}`, `rating-down-${props.id}`)}>
                     <img src={RATING_UP} alt='rating-up'></img>
                 </button>
-                <button className='unpressed' id={`rating-down-${props.id}`} onLoad={()=>buttonDownOnLoad(props, `rating-down-${props.id}`)} onClick={() => ratingDown(props, `rating-down-${props.id}`, `rating-up-${props.id}`)}>
+                <button className='unpressed' id={`rating-down-${props.id}`} onLoad={() => buttonDownOnLoad(props, `rating-down-${props.id}`)} onClick={() => ratingDown(props, `rating-down-${props.id}`, `rating-up-${props.id}`)}>
                     <img src={RATING_DOWN} alt='rating-down'></img>
                 </button>
             </div>
+            <Link to={`/posts/${props.id}`}>
+                <div className="post-comments">
+                    <img src={REPLIES} alt="replies" />
+                    <span>Replies</span>
+                </div>
+            </Link>
         </div>);
 }
 
 function buttonUpOnLoad(props: PostProps, id: string) {
     let rating = ratings.find(r => r.post.id === props.id);
-
-    if(rating!.value === "up") {
+    if(user?.id !== rating?.user.id || user === undefined) {
+        document.getElementById(id)!.className = 'unpressed';
+    }
+    if (rating!.value === "up") {
         document.getElementById(id)!.className = 'pressed';
     }
 }
 
 function buttonDownOnLoad(props: PostProps, id: string) {
     let rating = ratings.find(r => r.post.id === props.id);
-
-    if(rating!.value === "down") {
+    if(user?.id !== rating?.user.id || user === undefined) {
+        document.getElementById(id)!.className = 'unpressed';
+    }
+    if (rating!.value === "down") {
         document.getElementById(id)!.className = 'pressed';
     }
 }
 
 
 function ratingUp(props: PostProps, this_id: string, other_id: string) {
-    let rating = ratings.find(r => r.post.id === props.id);
-    let ratingToPost: RatingProps = {
-        id: 0,
-        user: user!,
-        post: props!,
-        value: "up"
-    }
-    //если рейтинг вверх была ненажатой
-    if (document.getElementById(this_id)?.className === 'unpressed') {
-        //сделать рейтинг вверх нажатой
-        //+1
-        //ratings: create user, post, value
-        document.getElementById(this_id)!.className = 'pressed';
-        createRating(ratingToPost);
-        updatePostRating(props, 1);
+    if (user !== undefined) {
+        let rating = ratings.find(r => r.post.id === props.id);
+        let ratingToPost: RatingProps = {
+            id: 0,
+            user: user!,
+            post: props!,
+            value: "up"
+        }
+        //если рейтинг вверх была ненажатой
+        if (document.getElementById(this_id)?.className === 'unpressed') {
+            //сделать рейтинг вверх нажатой
+            //+1
+            //ratings: create user, post, value
+            document.getElementById(this_id)!.className = 'pressed';
+            createRating(ratingToPost);
+            updatePostRating(props, 1);
+        } else {
+            //сделать рейтинг вверх ненажатой
+            //-1
+            document.getElementById(this_id)!.className = 'unpressed';
+            if (ratings.includes(rating!)) {
+                deleteRating(rating!.id);
+            }
+            updatePostRating(props, -1);
+        }
+        //если рейтинг вниз была нажатой
+        if (document.getElementById(other_id)?.className === 'pressed') {
+            //сделать рейтинг вниз ненажатой
+            //сделать рейтинг вверх нажатой
+            //+2
+            document.getElementById(other_id)!.className = 'unpressed';
+            document.getElementById(this_id)!.className = 'pressed';
+            if (ratings.includes(rating!)) {
+                deleteRating(rating!.id);
+            }
+            createRating(ratingToPost);
+            updatePostRating(props, 2);
+        }
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     } else {
-        //сделать рейтинг вверх ненажатой
-        //-1
-        document.getElementById(this_id)!.className = 'unpressed';
-        if(ratings.includes(rating!)) {
-            deleteRating(rating!.id);
-        }
-        updatePostRating(props, -1);
+        window.location.href = "/signup";
     }
-    //если рейтинг вниз была нажатой
-    if (document.getElementById(other_id)?.className === 'pressed') {
-        //сделать рейтинг вниз ненажатой
-        //сделать рейтинг вверх нажатой
-        //+2
-        document.getElementById(other_id)!.className = 'unpressed';
-        document.getElementById(this_id)!.className = 'pressed';
-        if(ratings.includes(rating!)) {
-            deleteRating(rating!.id);
-        }
-        createRating(ratingToPost);
-        updatePostRating(props, 2);
-    }
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
+
 }
 
 function ratingDown(props: PostProps, this_id: string, other_id: string) {
-    let rating = ratings.find(r => r.post.id === props.id);
-    let ratingToPost: RatingProps = {
-        id: 0,
-        user: user!,
-        post: props!,
-        value: "down"
-    }
-    //если рейтинг вверх была ненажатой
-    if (document.getElementById(this_id)?.className === 'unpressed') {
-        //сделать рейтинг вверх нажатой
-        //+1
-        //ratings: create user, post, value
-        document.getElementById(this_id)!.className = 'pressed';
-        createRating(ratingToPost);
-        updatePostRating(props, -1);
+    if (user !== undefined) {
+        let rating = ratings.find(r => r.post.id === props.id);
+        let ratingToPost: RatingProps = {
+            id: 0,
+            user: user!,
+            post: props!,
+            value: "down"
+        }
+        if (document.getElementById(this_id)?.className === 'unpressed') {
+            //сделать рейтинг вверх нажатой
+            //+1
+            //ratings: create user, post, value
+            document.getElementById(this_id)!.className = 'pressed';
+            createRating(ratingToPost);
+            updatePostRating(props, -1);
+        } else {
+            //сделать рейтинг вверх ненажатой
+            //-1
+            document.getElementById(this_id)!.className = 'unpressed';
+            if (ratings.includes(rating!)) {
+                deleteRating(rating!.id);
+            }
+            updatePostRating(props, 1);
+        }
+        if (document.getElementById(other_id)?.className === 'pressed') {
+            //-2
+            document.getElementById(other_id)!.className = 'unpressed';
+            document.getElementById(this_id)!.className = 'pressed';
+            if (ratings.includes(rating!)) {
+                deleteRating(rating!.id);
+            }
+            createRating(ratingToPost);
+            updatePostRating(props, -2);
+        }
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     } else {
-        //сделать рейтинг вверх ненажатой
-        //-1
-        document.getElementById(this_id)!.className = 'unpressed';
-        if(ratings.includes(rating!)) {
-           deleteRating(rating!.id);
-        }
-        updatePostRating(props, 1);
+        window.location.href = "/signup";
     }
-    if (document.getElementById(other_id)?.className === 'pressed') {
-        //-2
-        document.getElementById(other_id)!.className = 'unpressed';
-        document.getElementById(this_id)!.className = 'pressed';
-        if(ratings.includes(rating!)) {
-            deleteRating(rating!.id);
-        }
-        createRating(ratingToPost);
-        updatePostRating(props, -2);
-    }
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
 }
 
 function updatePostRating(props: PostProps, value: number) {

@@ -161,11 +161,12 @@
     border:1px solid lightgray;
     border-radius: 5px;
     font-size: medium;
+    justify-content: center;
+    justify-items:center;
 }
 
 .post-comments > img,
 .post-comments > span {
-    vertical-align:middle;
     width:25px;
     height:25px;
 }

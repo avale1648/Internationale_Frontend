@@ -6,6 +6,8 @@ import SIGN_IN from "../../assets/login.svg";
 import SIGN_OUT from "../../assets/logout.svg";
 import { signout } from "../auth/AuthUtil";
 
+
+//<input type='text' className='searchbar' placeholder='Search...'></input>
 export function Header() {
     return (
         <div className='header'>
@@ -13,7 +15,6 @@ export function Header() {
                 <img className='header-img' src={LOGO} alt="logo" />
             </div>
             <div className="header-sub">
-                <input type='text' className='searchbar' placeholder='Search...'></input>
             </div>
             <div className="header-sub-right">
             <div className="header-sub">

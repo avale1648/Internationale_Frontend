@@ -1,4 +1,4 @@
-export const API_MAIN = 'http://localhost:1648';
+export const API_MAIN = 'http://192.168.1.118:1648';
 export const API_COMMUNITIES = `${API_MAIN}/communities`;
 export const API_COMMUNITY_SUBSCRIPTIONS = `${API_MAIN}/community_subscriptions`;
 export const API_MESSAGES = `${API_MAIN}/messages`;

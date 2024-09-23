@@ -14,14 +14,14 @@ export function SigninForm() {
         const user = users.find(u => u.name === name && u.password === password);
 
         if (user !== null) {
-            setUser(user!);
+            localStorage.setItem("user_id", `${user!.id}`);
             window.location.href = `/users/${user!.name}`;
         }
     }
 
     return (
         <div className="signup-container">
-            <h2>Sign up</h2>
+            <h2>Sign in</h2>
             <label htmlFor="name-input">Name:</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="name-input" name="name-input" placeholder="Name" />
             <label htmlFor="password-input">Password:</label>

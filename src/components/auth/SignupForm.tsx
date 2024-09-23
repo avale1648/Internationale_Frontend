@@ -1,9 +1,9 @@
 import './styles.css'
 import { useState } from "react";
 import UserProps from "../../props/UserProps";
-import { createUser } from "../../api/UserService";
-import { setUser } from './AuthUtil';
+import { createUser, getUsers } from "../../api/UserService";
 
+const users: UserProps[] = await getUsers();
 export default function SignupForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -27,7 +27,8 @@ export default function SignupForm() {
         };
 
         createUser(user);
-        setUser(user!);
+        let created_id: number | undefined = users.find(u =>  u.name === user.name)?.id;
+        localStorage.setItem("user_id", `${Number(created_id)}`);
         window.location.href = `/users/${user!.name}`;
     }
 
