@@ -10,7 +10,7 @@ import { CommunityPage } from './pages/CommunityPage';
 import { SignupPage } from './pages/auth/SignupPage';
 import { SigninPage } from './pages/auth/SigninPage';
 import { PostFormPageEdit, PostFormPageUser } from './pages/PostFormPage';
-import { SubmitCommunityPage } from './pages/SubmitCommunityPage';
+import { EditCommunityPage, SubmitCommunityPage } from './pages/SubmitCommunityPage';
 import { PostFormPageCommunity } from './pages/PostFormPage';
 import { EditUserPage } from './pages/UserPages';
 
@@ -31,6 +31,7 @@ export default function App() {
       <Route path='/users/:name/edit' element={<EditUserPage/>}/>
       <Route path='/communities' element={<CommunitiesPage/>}/>
       <Route path='/communities/:name' element={<CommunityPage/>}/>
+      <Route path='/communities/:name/edit' element={<EditCommunityPage/>}/>
       <Route path='/communities/submit' element={<SubmitCommunityPage/>}/>
       <Route path='/signup' element={<SignupPage/>}/>
       <Route path='/signin' element={<SigninPage/>}/>

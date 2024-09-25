@@ -42,7 +42,7 @@ export function User({ props }: { props: UserProps }) {
             <img className="user-banner" src={props.banner} alt='banner' />
             <div className='user-header'>
                 <img src={props.pfp} alt='pfp' />
-                <h2>{'с/' + props.name}</h2>
+                <h2>{'c/' + props.name}</h2>
                 {button}
             </div>
             <div className='user-info'>

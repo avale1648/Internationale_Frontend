@@ -6,8 +6,6 @@ import SIGN_IN from "../../assets/login.svg";
 import SIGN_OUT from "../../assets/logout.svg";
 import { signout } from "../user/UserForms";
 
-
-//<input type='text' className='searchbar' placeholder='Search...'></input>
 export function Header() {
     return (
         <div className='header'>

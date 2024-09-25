@@ -102,7 +102,7 @@ export function EditUserForm() {
 
     return (
     <div className="signup-container">
-        <h2>Edit post</h2>
+        <h2>Edit user's profile</h2>
         <label htmlFor="name-input">Title:</label>
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} id="name-input" name="name-input" placeholder="Enter a name" />
         <label htmlFor="text-input">Text:</label>
