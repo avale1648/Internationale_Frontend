@@ -11,24 +11,23 @@ export function CommunityForm() {
     const [description, setDescription] = useState("");
     const [mature, setMature] = useState("false");
 
-    function create() {
-        const user:UserProps = JSON.parse(localStorage.getItem("user")!);
-        const userPost = users.find(u => u.name === user.name);
+    async function create() {
+        const user:UserProps= users.find(u => u.id === Number(localStorage.getItem("user_id")))!;
         const cakedate = new Date(Date.now()).toISOString();
         
         let community: CommunityProps = {
             id: 0,
-            founder: userPost!,
+            founder: user,
             name: name,
             mature: mature === "false"? false: true,
             rating: 0,
             cakedate: cakedate,
             description: description,
-            pfp: "",
-            banner: ""
+            pfp: "http://localhost:1648/files/default-community-pfp.png",
+            banner: "http://localhost:1648/files/default_banner.png"
         }
 
-        createCommunity(community);
+        await createCommunity(community);
         window.location.href = `/communities/${community.name}`;
     }
 

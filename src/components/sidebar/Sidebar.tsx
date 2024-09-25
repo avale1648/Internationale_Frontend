@@ -68,38 +68,5 @@ export function Sidebar({active}:{active: string}) {
           About L'Internationale
         </div>
       </Link>
-    </div>
-    /*<div className='sidebar'>
-    <div className="form_radio_group">
-      
-        <div className="form_radio_group_item">
-            <input id="radio-1" type="radio" name="radio" value="1"/>
-            <label htmlFor="radio-1">Профиль</label>
-        </div>
-        <div className="form_radio_group_item">
-            <input id="radio-2" type="radio" name="radio" value="2"/>
-            <label htmlFor="radio-2">Подписки</label>
-        </div>
-        <div className="form_radio_group_item">
-            <input id="radio-3" type="radio" name="radio" value="3"/>
-            <label htmlFor="radio-3">Популярное</label>
-        </div>
-          <div className="form_radio_group_item">
-            <input id="radio-4" type="radio" name="radio" value="4"/>
-            <label htmlFor="radio-4">Новое</label>
-        </div>
-          <div className="form_radio_group_item">
-            <input id="radio-5" type="radio" name="radio" value="5"/>
-            <label htmlFor="radio-5">Товарищи</label>
-        </div>
-          <div className="form_radio_group_item">
-            <input id="radio-6" type="radio" name="radio" value="6"/>
-            <label htmlFor="radio-6">Советы</label>
-        </div>
-          <div className="form_radio_group_item">
-            <input id="radio-7" type="radio" name="radio" value="7"/>
-            <label htmlFor="radio-7">О L'Internationale</label>
-        </div>
-    </div>
-  </div>*/);
+    </div>);
 }

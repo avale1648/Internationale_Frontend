@@ -17,13 +17,13 @@ export function CommunityPage() {
     const community = communities.find(c => c.name === name);
     const communityPosts = posts.filter(p => p.community?.name === community?.name);
     
-    localStorage.setItem("community_id", `${community!.id}`);
+    //localStorage.setItem("community_id", `${community!.id}`);
     localStorage.setItem("post_submit_mode", "community");
 
     let postCreator = <div></div>;
 
     if(localStorage.getItem("user_id") !== null && localStorage.getItem("user_id") !== "") {
-      postCreator = <CreateButton url='/posts/submit' text="New post"></CreateButton>;
+      postCreator = <CreateButton url={`/posts/submit/communities/${community?.id}`} text="New post"></CreateButton>;
     }
 
     return (

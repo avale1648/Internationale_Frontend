@@ -9,8 +9,9 @@ import { UserPage } from './pages/UserPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SignupPage } from './pages/auth/SignupPage';
 import { SigninPage } from './pages/auth/SigninPage';
-import { PostFormPage } from './pages/PostFormPage';
+import { PostFormPageEdit, PostFormPageUser } from './pages/PostFormPage';
 import { SubmitCommunityPage } from './pages/SubmitCommunityPage';
+import { PostFormPageCommunity } from './pages/PostFormPage';
 
 export default function App() {
   return (
@@ -21,8 +22,9 @@ export default function App() {
       <Route path='/posts/popular' element={<PostsPage sorting='popular'/>}/>
       <Route path='/posts/subscribed' element={<h1>Unimplemented page</h1>}/>
       <Route path='/posts/:id' element={<PostPage/>}/>
-      <Route path='/posts/submit' element={<PostFormPage mode="add"/>}/>
-      <Route path='/posts/edit/:id' element={<PostFormPage mode="edit"/>}/>
+      <Route path='/posts/submit' element={<PostFormPageUser/>}/>
+      <Route path='/posts/submit/communities/:id' element={<PostFormPageCommunity/>}/>
+      <Route path='/posts/edit/:id' element={<PostFormPageEdit/>}/>
       <Route path='/users' element={<UsersPage/>}/>
       <Route path='/users/:name' element={<UserPage/>}/>
       <Route path='/communities' element={<CommunitiesPage/>}/>

@@ -5,26 +5,28 @@ import RATING_DOWN from "../../assets/rating-down.svg";
 import EDIT from '../../assets/registration.svg';
 import DELETE from '../../assets/bin.svg';
 import REPLIES from '../../assets/comment-icon.svg';
+import reply_icon from '../../assets/reply.svg';
 import { Media } from "../Media";
 import PostProps from "../../props/PostProps";
 import './styles.css';
 import { Link } from "react-router-dom";
 import UserProps from "../../props/UserProps";
 import { getUserById } from "../../api/UserService";
-import { deletePost, getPosts, updatePost } from "../../api/PostService";
+import { createPost, deletePost, getPosts, updatePost } from "../../api/PostService";
 import RatingProps from "../../props/RatingProps";
 import { createRating, deleteRating, getRatings } from "../../api/RatingService";
+import { useState } from "react";
 
 const ratings: RatingProps[] = await getRatings();
 const posts: PostProps[] = await getPosts();
 let moderators: UserProps[] | undefined;
 const userId: number = Number(localStorage.getItem("user_id"));
-const user: UserProps | undefined = localStorage.getItem("user_id") === null ? undefined: await getUserById(userId) ;
+const user: UserProps | undefined = localStorage.getItem("user_id") === null ? undefined : await getUserById(userId);
 
 export function PostPreview({ props }: { props: PostProps }) {
     let header = initHeader(props);
     let content = initContent(props);
-    let footer = initFooter(props);
+    let footer = initFooterPreview(props);
 
     return (
         <div className='post-preview'>
@@ -40,6 +42,22 @@ export function Post({ props }: { props: PostProps }) {
     let content = initContent(props);
     let footer = initFooter(props);
     let replies = posts.filter(p => p.parentPost?.id === props.id);
+    replies.sort(compareByDate);
+
+    function compareByDate(a: PostProps, b: PostProps) {
+        let result = 0;
+        let aDate = Date.parse(a.postDate);
+        let bDate = Date.parse(b.postDate);
+
+        if (aDate < bDate) {
+            result = -1;
+        }
+        if (aDate > bDate) {
+            result = 1;
+        }
+
+        return result;
+    }
 
     //ответы в виде элемента
     //значение по умолчанию - пустой разделитель для ответа, на который нет ответов
@@ -58,12 +76,12 @@ export function Post({ props }: { props: PostProps }) {
             </div>
     }
 
-
     return (
         <div className='post'>
             {header}
             {content}
             {footer}
+            <PostReplier props={props}></PostReplier>
             <div className="replies-container">
                 {repliesContent}
             </div>
@@ -155,14 +173,14 @@ function initHeader(props: PostProps) {
 
 function initContent(props: PostProps) {
     let content =
-        <div>
+        <div className="post-content">
             <h3>{props.title}</h3>
             <p>{props.text}</p>
             <br />
         </div>;
 
     if (props.file !== null && props.file !== '') {
-        content = <div>
+        content = <div className="post-content">
             <h3>{props.title}</h3>
             <br />
             <p>{props.text}</p>
@@ -175,7 +193,14 @@ function initContent(props: PostProps) {
     return content;
 }
 
-function initFooter(props: PostProps) {
+function initFooterPreview(props: PostProps) {
+    const linkStyle = {
+        textDecoration: "none",
+        color: "black"
+    };
+
+    let repliesCount = posts.filter(p => p.parentPost?.id === props.id).length;
+
     return (
         <div className='post-footer'>
             <div className='post-rating'>
@@ -187,35 +212,90 @@ function initFooter(props: PostProps) {
                     <img src={RATING_DOWN} alt='rating-down'></img>
                 </button>
             </div>
-            <Link to={`/posts/${props.id}`}>
+            <Link to={`/posts/${props.id}`} style={linkStyle}>
                 <div className="post-comments">
                     <img src={REPLIES} alt="replies" />
-                    <span>Replies</span>
+                    <span>Replies {repliesCount}</span>
                 </div>
             </Link>
         </div>);
 }
 
-function buttonUpOnLoad(props: PostProps, id: string) {
-    let rating = ratings.find(r => r.post.id === props.id);
-    if(user?.id !== rating?.user.id || user === undefined) {
-        document.getElementById(id)!.className = 'unpressed';
+function PostReplier({ props }: { props: PostProps }) {
+    const [text, setText] = useState("");
+
+    function createReply() {
+        const postdate = new Date(Date.now()).toISOString();
+
+        let reply: PostProps = {
+            id: 0,
+            user: user!,
+            parentPost: props,
+            title: "",
+            text: text,
+            postDate: postdate,
+            rating: 0,
+            file: ""
+        }
+        createPost(reply);
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     }
-    if (rating!.value === "up") {
+
+    return (
+        <div className="post-replier" id={`post-replier-${props.id}`} hidden>
+            <input type="text" value={text} onChange={(e) => setText(e.target.value)} id="text-input" name="text-input" placeholder="Enter a text" />
+            <button onClick={createReply}>
+                Reply
+            </button>
+        </div>
+    );
+}
+
+function initFooter(props: PostProps) {
+    function showReplier() {
+        document.getElementById(`post-replier-${props.id}`)!.hidden = !document.getElementById(`post-replier-${props.id}`)!.hidden;
+    }
+
+    return (
+        <div className='post-footer'>
+            <div className='post-rating'>
+                <div className='post-rating-div'>{props.rating}</div>
+                <button className='unpressed' id={`rating-up-${props.id}`} onLoad={() => buttonUpOnLoad(props, `rating-up-${props.id}`)} onClick={() => ratingUp(props, `rating-up-${props.id}`, `rating-down-${props.id}`)}>
+                    <img src={RATING_UP} alt='rating-up'></img>
+                </button>
+                <button className='unpressed' id={`rating-down-${props.id}`} onLoad={() => buttonDownOnLoad(props, `rating-down-${props.id}`)} onClick={() => ratingDown(props, `rating-down-${props.id}`, `rating-up-${props.id}`)}>
+                    <img src={RATING_DOWN} alt='rating-down'></img>
+                </button>
+            </div>
+            <div className="post-comments" onClick={() => showReplier()} id={`post-comments-${props.id}`}>
+                <img src={reply_icon} alt="replies" />
+                <span>Reply</span>
+            </div>
+        </div>);
+}
+
+function buttonUpOnLoad(props: PostProps, id: string) {
+    let ratingUpExists = ratings.some(r => r.post.id === props.id && r.user.id === user?.id && r.value === "up");
+
+    if (ratingUpExists) {
         document.getElementById(id)!.className = 'pressed';
+
+    } else {
+        document.getElementById(id)!.className = 'unpressed';
     }
 }
 
 function buttonDownOnLoad(props: PostProps, id: string) {
-    let rating = ratings.find(r => r.post.id === props.id);
-    if(user?.id !== rating?.user.id || user === undefined) {
+    let ratingUpExists = ratings.some(r => r.post.id === props.id && r.user.id === user?.id && r.value === "down");
+
+    if (ratingUpExists) {
+        document.getElementById(id)!.className = 'pressed';
+
+    } else {
         document.getElementById(id)!.className = 'unpressed';
     }
-    if (rating!.value === "down") {
-        document.getElementById(id)!.className = 'pressed';
-    }
 }
-
 
 function ratingUp(props: PostProps, this_id: string, other_id: string) {
     if (user !== undefined) {

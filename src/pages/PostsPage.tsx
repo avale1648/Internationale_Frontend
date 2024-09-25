@@ -6,15 +6,16 @@ import PostProps from "../props/PostProps";
 import './styles.css';
 
 const posts: PostProps[] = await getPosts();
+const parentPosts = posts.filter(p => p.parentPost === null);
 
 export function PostsPage({sorting}:{sorting: string}) {
 
   if(sorting === 'new') {
-    posts.sort(compareByDate).reverse();
+    parentPosts.sort(compareByDate).reverse();
   }
 
   if(sorting === 'popular') {
-    posts.sort(compareByRating).reverse(); 
+    parentPosts.sort(compareByRating).reverse(); 
   }
 
   if(sorting === 'subscribed') {
@@ -27,7 +28,7 @@ export function PostsPage({sorting}:{sorting: string}) {
       <div className='main-container'>
         {sorting === 'new'? <Sidebar active="new"></Sidebar>: <Sidebar active="popular"></Sidebar>}
         <div className='content-container'>
-          {posts.map((post: PostProps) =>
+          {parentPosts.map((post: PostProps) =>
               <PostPreview props={post} key={post.id}></PostPreview>)
           }
         </div>

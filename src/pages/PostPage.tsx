@@ -3,7 +3,7 @@ import { getPosts } from "../api/PostService";
 import PostProps from "../props/PostProps";
 import { Header } from "../components/header/Header";
 import { Sidebar } from "../components/sidebar/Sidebar";
-import { Post } from "../components/post/Post";
+import { Post} from "../components/post/Post";
 
 const posts: PostProps[] = await getPosts();
 
