@@ -13,6 +13,7 @@ import { PostFormPageEdit, PostFormPageUser } from './pages/PostFormPage';
 import { EditCommunityPage, SubmitCommunityPage } from './pages/SubmitCommunityPage';
 import { PostFormPageCommunity } from './pages/PostFormPage';
 import { EditUserPage } from './pages/UserPages';
+import { SubscriptionsPage } from './pages/SubscriptionsPage';
 
 export default function App() {
   return (
@@ -21,7 +22,7 @@ export default function App() {
       <Route path='/' element={<Navigate to='/posts/new'/>}/>
       <Route path='/posts/new' element={<PostsPage sorting='new'/>}/>
       <Route path='/posts/popular' element={<PostsPage sorting='popular'/>}/>
-      <Route path='/posts/subscribed' element={<h1>Unimplemented page</h1>}/>
+      <Route path='/posts/subscribed' element={<SubscriptionsPage/>}/>
       <Route path='/posts/:id' element={<PostPage/>}/>
       <Route path='/posts/submit' element={<PostFormPageUser/>}/>
       <Route path='/posts/submit/communities/:id' element={<PostFormPageCommunity/>}/>
