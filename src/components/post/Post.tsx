@@ -341,7 +341,6 @@ function ratingUp(props: PostProps, this_id: string, other_id: string) {
     } else {
         window.location.href = "/signup";
     }
-
 }
 
 function ratingDown(props: PostProps, this_id: string, other_id: string) {

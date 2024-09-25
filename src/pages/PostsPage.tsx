@@ -21,7 +21,7 @@ export function PostsPage({sorting}:{sorting: string}) {
   if(sorting === 'subscribed') {
 
   }
-
+  
   return (
     <div>
       <Header></Header>

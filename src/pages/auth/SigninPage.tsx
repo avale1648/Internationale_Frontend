@@ -1,4 +1,4 @@
-import { SigninForm } from "../../components/auth/SigninForm";
+import { SigninForm } from "../../components/user/UserForms";
 import { Header } from "../../components/header/Header";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 

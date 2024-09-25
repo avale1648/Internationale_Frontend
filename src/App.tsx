@@ -12,6 +12,7 @@ import { SigninPage } from './pages/auth/SigninPage';
 import { PostFormPageEdit, PostFormPageUser } from './pages/PostFormPage';
 import { SubmitCommunityPage } from './pages/SubmitCommunityPage';
 import { PostFormPageCommunity } from './pages/PostFormPage';
+import { EditUserPage } from './pages/UserPages';
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
       <Route path='/posts/edit/:id' element={<PostFormPageEdit/>}/>
       <Route path='/users' element={<UsersPage/>}/>
       <Route path='/users/:name' element={<UserPage/>}/>
+      <Route path='/users/:name/edit' element={<EditUserPage/>}/>
       <Route path='/communities' element={<CommunitiesPage/>}/>
       <Route path='/communities/:name' element={<CommunityPage/>}/>
       <Route path='/communities/submit' element={<SubmitCommunityPage/>}/>

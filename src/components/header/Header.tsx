@@ -4,7 +4,7 @@ import "./styles.css";
 import SIGN_UP from "../../assets/registration.svg";
 import SIGN_IN from "../../assets/login.svg";
 import SIGN_OUT from "../../assets/logout.svg";
-import { signout } from "../auth/AuthUtil";
+import { signout } from "../user/UserForms";
 
 
 //<input type='text' className='searchbar' placeholder='Search...'></input>
