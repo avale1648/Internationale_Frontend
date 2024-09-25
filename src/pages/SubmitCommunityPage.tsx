@@ -8,7 +8,7 @@ export function SubmitCommunityPage() {
       <div>
         <Header></Header>
         <div className='main-container'>
-          <Sidebar active="new"></Sidebar>
+          <Sidebar active="communities"></Sidebar>
           <div className='content-container'>
               <CommunitySubmitForm></CommunitySubmitForm>
           </div>
@@ -22,9 +22,23 @@ export function EditCommunityPage() {
     <div>
       <Header></Header>
       <div className='main-container'>
-        <Sidebar active="new"></Sidebar>
+        <Sidebar active="communities"></Sidebar>
         <div className='content-container'>
             <CommunityEditForm></CommunityEditForm>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SubmitModeratorPage() {
+  return (
+    <div>
+      <Header></Header>
+      <div className='main-container'>
+        <Sidebar active="communities"></Sidebar>
+        <div className='content-container'>
+            <SubmitModeratorPage></SubmitModeratorPage>
         </div>
       </div>
     </div>

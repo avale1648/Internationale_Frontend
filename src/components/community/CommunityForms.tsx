@@ -1,12 +1,16 @@
 import { useState } from "react";
 import UserProps from "../../props/UserProps";
-import { getUsers } from "../../api/UserService";
+import { getUserById, getUsers } from "../../api/UserService";
 import CommunityProps from "../../props/CommunityProps";
 import { createCommunity, getCommunities, updateCommunity } from "../../api/CommunityService";
 import { useParams } from "react-router-dom";
+import { createModerator } from "../../api/ModeratorService";
+import ModeratorProps from "../../props/ModeratorProps";
 
 const users: UserProps[] = await getUsers();
 const communities: CommunityProps[] = await getCommunities();
+const userId: number = Number(localStorage.getItem("user_id"));
+const user: UserProps | undefined = localStorage.getItem("user_id") === null ? undefined : await getUserById(userId);
 
 export function CommunitySubmitForm() {
     const [name, setName] = useState("");
@@ -14,12 +18,11 @@ export function CommunitySubmitForm() {
     const [mature, setMature] = useState("false");
 
     async function create() {
-        const user:UserProps= users.find(u => u.id === Number(localStorage.getItem("user_id")))!;
         const cakedate = new Date(Date.now()).toISOString();
         
         let community: CommunityProps = {
             id: 0,
-            founder: user,
+            founder: user!,
             name: name,
             mature: mature === "false"? false: true,
             rating: 0,
@@ -79,4 +82,39 @@ export function CommunityEditForm() {
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} id="description-input" name="description-input" placeholder="Enter a description" />
         <button onClick={update}>Submit</button>
     </div>);
+}
+
+export function SubmitModeratorForm() {
+    const {name} = useParams();
+
+    const [moderatorName, setModeratorName] = useState("");
+    const [password, setPassword] = useState("");
+
+    function create() {
+        if(users.some(u => u.name === moderatorName) && password === user!.password) {
+            let userToModerator: UserProps = users.find(u => u.name === moderatorName)!;
+            let community: CommunityProps = communities.find(c => c.name === name)!;
+            
+            let moderator: ModeratorProps = {
+                id: 0,
+                user: userToModerator,
+                community: community
+            }
+
+            createModerator(moderator);
+        }
+
+        window.location.href = `/communities/${name}`;
+    }
+
+    return (
+        <div className="signup-container">
+            <h2>{`Add moderator to i/${name}`}</h2>
+            <label htmlFor="name-input">Moderator name:</label>
+            <input type="text" value={moderatorName} onChange={(e) => setModeratorName(e.target.value)} id="name-input" name="name-input" placeholder="Enter moderator name" />
+            <label htmlFor="password-input">Your password:</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password-input" name="password-input" placeholder="Enter your password" />
+            <button onClick={create}>Submit</button>
+        </div>
+    );
 }
